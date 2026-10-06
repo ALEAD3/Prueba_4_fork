@@ -2,6 +2,7 @@ pipeline {
     agent any
 
     stages {
+
         stage('Clonar Código') {
             steps {
                 checkout scm
@@ -10,7 +11,19 @@ pipeline {
 
         stage('Ejecutar Pruebas Python') {
             steps {
-                sh 'docker run --rm -v $(pwd):/app -w /app python:3.11-slim python -m unittest test_app.py'
+                sh '''
+                    echo "===== ARCHIVOS EN JENKINS ====="
+                    pwd
+                    ls -la
+
+                    echo "===== PRUEBAS PYTHON ====="
+
+                    docker run --rm \
+                        -v jenkins_home:/jenkins_home \
+                        -w /jenkins_home/workspace/prueba4 \
+                        python:3.11-slim \
+                        python -m unittest test_app.py
+                '''
             }
         }
     }
