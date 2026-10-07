@@ -2,7 +2,7 @@
 def sumar(a, b):
     return a + b
 
-#def restar(a, b):
+def restar(a, b):
     return a - c
 
 if __name__ == "__main__":
